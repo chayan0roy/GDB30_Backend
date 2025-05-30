@@ -5,6 +5,8 @@ const bcrypt = require('bcryptjs')
 const dotenv = require('dotenv');
 const generateToken = require('../middleware/generateToken')
 dotenv.config();
+const passport = require('passport');
+
 
 
 
@@ -76,7 +78,7 @@ router.post('/login', async (req, res) => {
 
 
 
-router.get('/profile', async (req, res) => {
+router.get('/profile', passport.authenticate('jwt', {session:false}), async (req, res) => {
     try {
         const { email } = req.body;
 
